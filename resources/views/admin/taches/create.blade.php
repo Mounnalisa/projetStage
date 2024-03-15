@@ -11,7 +11,6 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form method="POST" action="{{ route('admin.taches.store') }}">
                         @csrf
-
                         <div class="mb-4">
                             <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Titre</label>
                             <input type="text" name="title" id="title" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
@@ -29,12 +28,19 @@
                             </select>
                         </div>
 
+                        <div class="mb-4">
+                            <label for="user" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Collaborateur</label>
+                            <select name="user_id" id="user" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div>
-                            
                             <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Ajouter la tâche
                             </button>
-                                                       
                         </div>
                     </form>
                 </div>
