@@ -4,6 +4,5 @@
 @extends('master')
 @section('content')
     
-    
 @endsection
 @endif
