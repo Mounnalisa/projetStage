@@ -68,7 +68,7 @@ class TaskController extends Controller
         // Mettre à jour les données de la tâche
         $task->title = $request->title;
         $task->description = $request->description;
-        $task->user_id = $request->user_id;
+        $task->user_id = $request->user;
         $task->save();
        
 

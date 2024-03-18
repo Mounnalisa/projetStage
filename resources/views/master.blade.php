@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+    
 
     <title>Task-app</title>
 
@@ -44,6 +46,7 @@
 
                 <!-- Begin Page Content -->
                 @yield('main')
+                
                 
             <!-- End of Main Content -->
 
@@ -98,6 +101,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    
 
 </body>
 

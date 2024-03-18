@@ -1,48 +1,41 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Ajouter un utilisateur') }}
-        </h2>
-    </x-slot>
+@extends('master')
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form method="POST" action="{{ route('admin.collaborateurs.store') }}">
-                        @csrf
+@section('main')
 
-                        <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nom</label>
-                            <input type="text" name="name" id="name" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
+<form method="POST" action="{{ route('admin.collaborateurs.store') }}">
+    @csrf
 
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                            <input type="email" name="email" id="email" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mot de passe</label>
-                            <input type="password" name="password" id="password" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Rôle</label>
-                            <select name="role" id="role" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value="admin">Admin</option>
-                                <option value="collaborateur">Collaborateur</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Ajouter l'utilisateur
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div>
+        <label for="name" class="form-label">Nom</label>
+        <input type="text" name="name" id="name" class="form-control">
     </div>
-</x-app-layout>
+
+    <div>
+        <label for="email" class="form-label">Email</label>
+        <input type="email" name="email" id="email" class="form-control">
+    </div>
+
+    <div>
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" name="password" id="password" class="form-control">
+    </div>
+
+    <div >
+        <label for="role" class="form-label">Rôle</label>
+        <select name="role" id="role" class="form-select">
+            <option value="admin">Admin</option>
+            <option value="collaborateur">Collaborateur</option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">
+            Ajouter l'utilisateur
+        </button>
+    </div>
+</form>
+
+@endsection
+
