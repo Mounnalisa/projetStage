@@ -17,28 +17,32 @@ class TaskController extends Controller
         // Passer les tâches à la vue
         return view('admin.taches.index', compact('tasks'));
     }
+    // public function tache_a_valider()
+    // {
+    //     // Récupérer toutes les tâches
+    //     $tasks = Task::all();
+
+    //     // Passer les tâches à la vue
+    //     return view('admin.taches.tache_a_valider', compact('tasks'));
+    // }
 
     public function create()
     {
+        
         $users = User::all(); // Récupérer tous les utilisateurs disponibles
         return view('admin.taches.create', compact('users'));
-    
+        
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:à faire,en cours,à valider,validé',
-            'user_id' => 'required|exists:users,id' // Assurez-vous que l'utilisateur sélectionné existe
-        ]);
-        Task::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-            'user_id' => $request->user_id // Stocker l'ID de l'utilisateur sélectionné avec la tâche
-        ]);
+     { 
+        $task = new Task;
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->status = $request->status;
+        $task->user_id = $request->user_id;
+        $task->save();
+       
 
         return redirect()->route('admin.taches.index')->with('success', 'La tâche a été ajoutée avec succès.');
     }
@@ -58,22 +62,15 @@ class TaskController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Valider les données de la requête
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:à faire,en cours,à valider,validé',
-        ]);
-
         // Récupérer la tâche à modifier
         $task = Task::findOrFail($id);
 
         // Mettre à jour les données de la tâche
-        $task->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'status' => $request->status,
-        ]);
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->user_id = $request->user_id;
+        $task->save();
+       
 
         // Rediriger avec un message de succès
         return redirect()->route('admin.taches.index')->with('success', 'La tâche a été mise à jour avec succès.');
