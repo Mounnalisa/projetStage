@@ -18,8 +18,8 @@ class SuperAdminSeeder extends Seeder
         User::create([
             'name' => 'Super Admin',
             'email' => 'superadmin@example.com',
-            'password' => Hash::make('chitkhrbi9ahena'), // Hash the password 
-            'role' => 'superadmin',
+            'password' => Hash::make('superAdmin1234'), // Hash the password 
+            'role' => 'admin',
         ]);
     }
 }

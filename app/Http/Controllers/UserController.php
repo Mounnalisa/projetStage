@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Models\User;
+
 
 class UserController extends Controller
 {
@@ -25,23 +27,28 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Valider les données de la requête
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email|max:255',
-            'password' => 'required|string|min:8|max:255',
-            'role' => 'required|in:admin,collaborateur', // Assurez-vous que cette liste correspond à vos rôles possibles
-        ]);
+        $task = new User;
+        $task->name = $request->name;
+        $task->email = $request->email;
+        $task->password = bcrypt($request->password);
+        $task->role = $request->role;
+        $task->save();
 
-        // Créer une nouvelle collaborateur
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'role' => $request->role,
-        ]);
-        // Rediriger 
-        return redirect()->route('admin.collaborateurs.index');
+        return redirect()->route('index.user');
+    }
+
+    public function details($id)
+    {
+        $user = User::findOrFail($id);
+        $tasks = Task::all();
+        return view('admin.collaborateurs.details', compact('tasks', 'user'));
+    }
+
+    public function showTasks($id)
+    {
+        $user = User::findOrFail($id);
+        $tasks = Task::all();
+        return view('admin.collaborateurs.tasksUser', compact('tasks', 'user'));
     }
 
     public function edit($id)
@@ -76,7 +83,7 @@ class UserController extends Controller
         $user->save();
 
         // Rediriger 
-        return redirect()->route('admin.collaborateurs.index');
+        return redirect()->route('index.user');
     }
 
     public function destroy($id)
@@ -88,6 +95,6 @@ class UserController extends Controller
         $user->delete();
 
         // Rediriger 
-        return redirect()->route('admin.collaborateurs.index');
+        return redirect()->route('index.user');
     }
 }

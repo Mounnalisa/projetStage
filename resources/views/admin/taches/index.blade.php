@@ -1,67 +1,46 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Liste des tâches') }}
-        </h2>
-    </x-slot>
+@extends('master')
+@section("main")
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50 dark:bg-gray-700">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                    Titre
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                    Description
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                    Statut
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                    Collaborateur
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                            @foreach ($tasks as $task)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    {{ $task->title }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                    {{ $task->description }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                    {{ $task->status }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                    @if ($task->user)
-                                        {{ $task->user->name }}
-                                    @else
-                                        Aucun collaborateur associé
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                    <a href="{{ route('edit.task', $task->id) }}" class="text-indigo-600 hover:text-indigo-900">Modifier</a>
-                                    <form action="{{ route('delete.task', $task->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900 ml-4">Supprimer</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+<div class="py-12">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3 class="text-center mb-4">Liste de Tâches</h3> 
+
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        <form action="{{ route('affect.task') }}" method="POST">
+                            @csrf
+                            <table id="taskTable" class="table table-bordered">
+                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                    <tr>
+                                        <th scope="col">Sélectionner</th>
+                                        <th scope="col">Titre</th>
+                                        <th scope="col">Statut</th>
+                                        <th scope="col">Détails</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($tasks as $task)
+                                    <tr data-id="{{ $task->id }}">
+                                        <td><input type="checkbox" name="selected_tasks[]" value="{{ $task->id }}" class="task-checkbox" data-task-id="{{ $task->id }}"></td>
+                                        <td>{{ $task->title }}</td>
+                                        <td>{{ $task->status }}</td>
+                                        <td>
+                                            <a href="{{ route('details.task', $task->id) }}" class="btn btn-light">plus</a>
+                                            <a href="{{ route('users.task', $task->id) }}" class="btn btn-light">collaborateurs</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-success">Affecter les tâches sélectionnées</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</div>
+
+@endsection

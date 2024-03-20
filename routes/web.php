@@ -30,26 +30,39 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
     // Routes pour la gestion des collaborateurs
-    Route::get('/collaborateurs', [UserController::class, 'index'])->name('admin.collaborateurs.index');
-    Route::get('/collaborateurs/create', [UserController::class, 'create'])->name('admin.collaborateurs.create');
-    Route::post('/collaborateurs', [UserController::class, 'store'])->name('admin.collaborateurs.store');
-    Route::get('/collaborateurs/{id}/edit', [UserController::class, 'edit'])->name('edit.collaborator');
-    Route::put('/collaborateurs/{id}', [UserController::class, 'update'])->name('update.collaborator');
-    Route::delete('/collaborateurs/{id}', [UserController::class, 'destroy'])->name('delete.collaborator');
+    Route::get('/collaborateurs', [UserController::class, 'index'])->name('index.user');
+    Route::get('/collaborateurcreate', [UserController::class, 'create'])->name('create.user');
+    Route::post('/collaborateurs', [UserController::class, 'store'])->name('store.user');
+    Route::get('/collaborateurs{id}edit', [UserController::class, 'edit'])->name('edit.user');
+    Route::put('/collaborateurs{id}', [UserController::class, 'update'])->name('update.user');
+    Route::delete('/collaborateurs{id}', [UserController::class, 'destroy'])->name('delete.user');
+    Route::get('/collaborateur{id}details', [UserController::class, 'details'])->name('details.user');
+    Route::get('/user{id}Tasks', [UserController::class, 'showTasks'])->name('tasks.user');
+
 
     // Routes pour la gestion des tâches
-    Route::post('/tasks', [TaskController::class, 'store'])->name('admin.taches.store');
-    Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('edit.task');
-    Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('update.task');
-    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('delete.task');
-    Route::get('/tasks/index', [TaskController::class, 'index'])->name('admin.taches.index');
-    Route::get('/tasks/create', [TaskController::class, 'create'])->name('admin.taches.create');
-    Route::post('/tasks', [TaskController::class, 'store'])->name('admin.taches.store');
+    Route::post('/tasks', [TaskController::class, 'store'])->name('store.task');
+    Route::get('/task{id}edit', [TaskController::class, 'edit'])->name('edit.task');
+    Route::put('/tasks{id}', [TaskController::class, 'update'])->name('update.task');
+    Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('delete.task');
+    Route::get('/indexTask', [TaskController::class, 'index'])->name('index.task');
+    Route::get('/createTask', [TaskController::class, 'create'])->name('create.task');
+    Route::get('/task{id}details', [TaskController::class, 'details'])->name('details.task');
+    // Route pour afficher la vue d'affectation des tâches
+    Route::post('/tasksAffect', [TaskController::class, 'showAffectForm'])->name('affect.task');
+    Route::delete('/supprimer-affectation/{taskId}/{userId}' , [TaskController::class, 'suppAffect'])->name('suppAffect.task');
+    
+    // Route pour traiter l'affectation des tâches
+    Route::post('/tasksProcessAffect', [TaskController::class, 'affect'])->name('process.affect.task');
+    Route::get('/tasks{id}Users', [TaskController::class, 'showUsers'])->name('users.task');
+
+
+
 });
 
 require __DIR__ . '/auth.php';

@@ -1,50 +1,64 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Ajouter une tâche') }}
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une tâche</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    @extends('master')
+    @section('main')
+    <div class="container mt-5"> 
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-center mb-4">Ajouter une tache</h3> 
+                        <form method="POST" action="{{ route('store.task') }}">
+                            @csrf
+                            <div class="form-group">
+                                <label for="title">Titre</label>
+                                <input type="text" name="title" id="title" class="form-control">
+                            </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form method="POST" action="{{ route('admin.taches.store') }}">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Titre</label>
-                            <input type="text" name="title" id="title" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea name="description" id="description" rows="3" class="form-control"></textarea>
+                            </div>
 
-                        <div class="mb-4">
-                            <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-                            <textarea name="description" id="description" rows="3" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-                        </div>
+                            <div class="form-group">
+                                <label for="status">Statut</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="à faire">À faire</option>
+                                </select>
+                            </div>
 
-                        <div class="mb-4">
-                            <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Statut</label>
-                            <select name="status" id="status" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value="à faire">À faire</option>
-                            </select>
-                        </div>
+                            {{-- <div class="form-group">
+                                <label for="user">Collaborateur</label>
+                                <select name="user_id" id="user" class="form-control">
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> --}}
 
-                        <div class="mb-4">
-                            <label for="user" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Collaborateur</label>
-                            <select name="user_id" id="user" class="mt-1 p-2 w-full border-gray-300 dark:bg-gray-700 dark:border-gray-600 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Ajouter la tâche
-                            </button> 
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success "> Enregistrer</button>
+                                <a href="{{ route('index.task') }}" class="btn btn-danger">Annuler</a> 
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+    @endsection
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
