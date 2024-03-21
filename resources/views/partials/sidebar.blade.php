@@ -46,6 +46,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Géré Les Tâches</h6>
+                <a class="collapse-item" href="{{ route('myTask.task') }}">Mes tâches</a>
                 <a class="collapse-item" href="{{ route('index.task')  }}">Liste de tâches</a>
                 <a class="collapse-item" href="{{ route('create.task') }}">Ajouter tâche</a>
             </div>

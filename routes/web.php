@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\kanbanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/myTask', [TaskController::class, 'myTask'])->name('myTask.task');
+
 
 });
 
@@ -60,9 +63,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route pour traiter l'affectation des tâches
     Route::post('/tasksProcessAffect', [TaskController::class, 'affect'])->name('process.affect.task');
     Route::get('/tasks{id}Users', [TaskController::class, 'showUsers'])->name('users.task');
-
-
-
+ 
+    
 });
+
 
 require __DIR__ . '/auth.php';

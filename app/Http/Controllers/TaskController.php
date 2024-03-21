@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class TaskController extends Controller
 {
@@ -40,7 +42,7 @@ class TaskController extends Controller
         $task = new Task;
         $task->title = $request->title;
         $task->description = $request->description;
-        $task->status = $request->status;
+        $task->status = 'à faire';
         $task->user_id = $request->user_id;
         $task->save();
 
@@ -72,6 +74,11 @@ class TaskController extends Controller
         // Retourner la vue avec la tâche à modifier
         return view('admin.taches.edit', compact('task', 'users'));
     }
+
+   
+   
+
+
 
     public function update(Request $request, $id)
     {
@@ -161,5 +168,11 @@ class TaskController extends Controller
         }
 
         return redirect()->route('index.task');
+    }
+
+    function myTask(){
+        $user = Auth::user();
+        $tasks=$user->tasks;
+        return view('admin.taches.myTask',compact('tasks'));
     }
 }

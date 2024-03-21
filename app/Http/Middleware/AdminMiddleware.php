@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Http\Controllers\TaskController;
 
 class AdminMiddleware
 {
@@ -23,5 +24,5 @@ class AdminMiddleware
 
         // Redirige l'utilisateur s'il n'est pas autorisé
         return redirect()->back();
-    }
+   }
 }

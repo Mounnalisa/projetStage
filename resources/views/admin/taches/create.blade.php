@@ -28,12 +28,12 @@
                                 <textarea name="description" id="description" rows="3" class="form-control"></textarea>
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="status">Statut</label>
                                 <select name="status" id="status" class="form-control">
                                     <option value="à faire">À faire</option>
                                 </select>
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="form-group">
                                 <label for="user">Collaborateur</label>

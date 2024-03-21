@@ -16,7 +16,7 @@ class CreateTasksTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('status', ['à faire', 'en cours', 'à valider', 'validé'])->default('à faire');
+            $table->enum('status', ['à faire', 'en cours', 'terminer', 'validé'])->default('à faire');
             $table->timestamps();
         });
     }
