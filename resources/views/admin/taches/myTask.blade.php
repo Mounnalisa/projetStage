@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <div class="column" style="background-color:#343a40" id="todo" ondragover="dragOver(event)" ondrop="dragDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+      <div class="column" style="background-color:#31363F" id="todo" ondragover="dragOver(event)" ondrop="dragDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
         <h2 class="status-title bg-gray">À faire</h2>
         <div class="status"></div>
         @foreach($tasks as $task)
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="column"  style="background-color: #343a40" id="inprogress" ondragover="dragOver(event)" ondrop="dragDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+      <div class="column"  style="background-color: #31363F" id="inprogress" ondragover="dragOver(event)" ondrop="dragDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
         <h2 class="status-title bg-yellow">En cours</h2>
         <div class="status"></div>
         @foreach($tasks as $task)
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="column" style="background-color: #343a40" id="done" ondragover="dragOver(event)" ondrop="dragDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+      <div class="column" style="background-color: #31363F" id="done" ondragover="dragOver(event)" ondrop="dragDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
         <h2 class="status-title bg-green">Terminé</h2>
         <div class="status"></div>
         @foreach($tasks as $task)
@@ -61,7 +61,9 @@
 
   function dragEnter(event) {
     event.preventDefault();
-    event.target.classList.add('over');
+    if (event.target.classList.contains('column')) {
+      event.target.classList.add('over');
+    }
   }
 
   function dragLeave(event) {
@@ -73,9 +75,13 @@
     const id = event.dataTransfer.getData("text/plain");
     const draggableElement = document.getElementById(id);
     const dropzone = event.target;
-    dropzone.classList.remove('over');
-    dropzone.appendChild(draggableElement);
-    updateStatus();
+
+    // Vérifier si la cible est une colonne
+    if (dropzone.classList.contains('column')) {
+      dropzone.classList.remove('over');
+      dropzone.appendChild(draggableElement);
+      updateStatus();
+    }
   }
 
   function updateStatus() {

@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/myTask', [TaskController::class, 'myTask'])->name('myTask.task');
 
-
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -63,6 +62,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route pour traiter l'affectation des tâches
     Route::post('/tasksProcessAffect', [TaskController::class, 'affect'])->name('process.affect.task');
     Route::get('/tasks{id}Users', [TaskController::class, 'showUsers'])->name('users.task');
+
+    Route::delete('/task{taskId}user{userId}', [TaskController::class, 'removeCollaborator'])->name('remove.collaborator');
  
     
 });

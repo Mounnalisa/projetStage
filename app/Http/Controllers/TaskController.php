@@ -175,4 +175,17 @@ class TaskController extends Controller
         $tasks=$user->tasks;
         return view('admin.taches.myTask',compact('tasks'));
     }
+
+    public function removeCollaborator($taskId, $userId)
+    {
+        
+        $task = Task::findOrFail($taskId);
+
+        $user = User::findOrFail($userId);
+
+        // Detach the user from the task's collaborators
+        $task->users()->detach($user);
+
+        return redirect()->back();
+    }
 }

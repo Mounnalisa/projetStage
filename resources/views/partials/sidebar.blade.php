@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar"  style="background-color: #7743DB;" >
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -34,6 +34,8 @@
     </div> --}}
 
     <hr class="sidebar-divider">
+
+    @if(auth()->user()->role === 'admin')
 
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -123,6 +125,19 @@
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 --}}
-    
+@else
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Tâches</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('myTask.task') }}">Mes tâches</a>
+        </div>
+    </div>
+</li>
+@endif
 
 </ul>

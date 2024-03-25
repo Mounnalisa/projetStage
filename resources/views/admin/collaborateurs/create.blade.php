@@ -15,7 +15,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-center mb-4">Ajouter un Collaborateur</h3> <!-- Centrer le titre -->
+                        <h3 class="text-center mb-4"  style="color: #401F71; font-family: Verdana;">Ajouter un Collaborateur</h3> <!-- Centrer le titre -->
                         <form method="POST" action="{{ route('store.user') }}">
                             @csrf
                             <div class="form-group">
@@ -42,10 +42,10 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success"> 
+                                <button type="submit" class="btn btn-success"  style="background-color: #7743DB;"> 
                                     Enregistrer
                                 </button>
-                                <a href="{{ route('index.user') }}" class="btn btn-danger">Annuler</a>                            </div>
+                                <a href="{{ route('index.user') }}" class="btn btn-warning" style="background-color: #F59D2A;" >Annuler</a>                            </div>
                         </form>
                     </div>
                 </div>

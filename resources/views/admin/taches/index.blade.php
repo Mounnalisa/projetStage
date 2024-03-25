@@ -22,19 +22,19 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($tasks as $task)
-                                    <tr data-id="{{ $task->id }}">
+                                    <tr data-id="{{ $task->id }}" >
                                         <td><input type="checkbox" name="selected_tasks[]" value="{{ $task->id }}" class="task-checkbox" data-task-id="{{ $task->id }}"></td>
                                         <td>{{ $task->title }}</td>
                                         <td>{{ $task->status }}</td>
                                         <td>
-                                            <a href="{{ route('details.task', $task->id) }}" class="btn btn-light">plus</a>
-                                            <a href="{{ route('users.task', $task->id) }}" class="btn btn-light">collaborateurs</a>
+                                            <a href="{{ route('details.task', $task->id) }}" class="btn btn-warning">plus</a>
+                                            <a href="{{ route('users.task', $task->id) }}" class="btn btn-dark" style="background-color: #7743DB;">collaborateurs</a>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-success">Affecter les tâches sélectionnées</button>
+                            <button type="submit" class="btn btn-secondary" >Affecter les tâches sélectionnées</button>
                         </form>
                     </div>
                 </div>

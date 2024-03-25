@@ -15,7 +15,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-center mb-4">Ajouter une tache</h3> 
+                        <h3 class="text-center mb-4" style="color: #401F71; font-family: Verdana;">Ajouter une tache</h3> 
                         <form method="POST" action="{{ route('store.task') }}">
                             @csrf
                             <div class="form-group">
@@ -45,8 +45,8 @@
                             </div> --}}
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success "> Enregistrer</button>
-                                <a href="{{ route('index.task') }}" class="btn btn-danger">Annuler</a> 
+                                <button type="submit" class="btn btn-dark " style="background-color: #7743DB;"> Enregistrer</button>
+                                <a href="{{ route('index.task') }}" class="btn btn-warning" style="background-color: #F59D2A;">Annuler</a> 
                             </div>
                         </form>
                     </div>

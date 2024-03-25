@@ -27,8 +27,8 @@
                             </select>
                         </div>
                         
-                        <button type="submit" class="btn btn-success">Enregistrer</button>
-                        <a href="{{ route('index.task', $task->id) }}" class="btn btn-danger">Annuler</a>
+                        <button type="submit" class="btn btn-success" style="background-color: #7743DB;">Enregistrer</button>
+                        <a href="{{ route('index.task', $task->id) }}" class="btn btn-warning" style="background-color: #F59D2A;">Annuler</a>
                     </form>
                 </div>
             </div>
