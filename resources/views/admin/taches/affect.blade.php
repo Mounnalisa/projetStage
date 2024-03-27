@@ -36,7 +36,7 @@
                         </div>
                         <button type="submit" class="btn btn-success" style="background-color: #7743DB;">Affecter </button>
                         <!-- Lien pour revenir en arrière -->
-                        <a href="javascript:history.back()" class="btn btn-warning" style="background-color: #F59D2A;">Retour</a>
+                        <a href="javascript:history.back()" class="btn btn-warning" style="background-color: #F59D2A;">précédent</a>
                     </form>
                 </div>
             </div>

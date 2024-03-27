@@ -32,7 +32,7 @@
                     </div>
 
                 </div>
-                <a href="javascript:history.back()" class="btn btn-secondary">Retour</a>
+                <a href="javascript:history.back()" class="btn btn-secondary">précédent</a>
 
             </div>
 

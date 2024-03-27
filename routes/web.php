@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\kanbanController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +26,20 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/dashboard', [ProjectController::class,'index'])->middleware(['auth', 'verified'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/myTask', [TaskController::class, 'myTask'])->name('myTask.task');
+
+    Route::get('/project{id}',[ProjectController::class,'test'])->name('project');
 
 });
 
@@ -62,10 +70,17 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route pour traiter l'affectation des tâches
     Route::post('/tasksProcessAffect', [TaskController::class, 'affect'])->name('process.affect.task');
     Route::get('/tasks{id}Users', [TaskController::class, 'showUsers'])->name('users.task');
+    Route::delete('/task/{taskId}/removeCollaborators', [TaskController::class, 'removeCollaborators'])->name('removeCollaborators.task');
 
-    Route::delete('/task{taskId}user{userId}', [TaskController::class, 'removeCollaborator'])->name('remove.collaborator');
- 
-    
+
+
+     // Routes pour la gestion des Projets
+    Route::get('/dashboardProject', [ProjectController::class,'index'])->name('index.project');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('store.project');
+    Route::get('/project{id}edit', [ProjectController::class, 'edit'])->name('edit.project');
+    Route::put('/project{id}', [ProjectController::class, 'update'])->name('update.project');
+    Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('delete.project');
+    Route::get('/createProject', [ProjectController::class, 'create'])->name('create.project');
 });
 
 

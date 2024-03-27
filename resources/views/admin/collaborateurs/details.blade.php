@@ -23,7 +23,7 @@
                         </form>
                         
                     </div>
-                    <a href="javascript:history.back()" class="btn btn-light">Router</a>
+                    <a href="javascript:history.back()" class="btn btn-light">précédent</a>
 
                 </div>
 

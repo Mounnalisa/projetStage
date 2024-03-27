@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
@@ -20,14 +21,7 @@ class TaskController extends Controller
         // Passer les tâches à la vue
         return view('admin.taches.index', compact('tasks', 'users'));
     }
-    // public function tache_a_valider()
-    // {
-    //     // Récupérer toutes les tâches
-    //     $tasks = Task::all();
-
-    //     // Passer les tâches à la vue
-    //     return view('admin.taches.tache_a_valider', compact('tasks'));
-    // }
+    
 
     public function create()
     {
@@ -171,21 +165,26 @@ class TaskController extends Controller
     }
 
     function myTask(){
+
         $user = Auth::user();
         $tasks=$user->tasks;
         return view('admin.taches.myTask',compact('tasks'));
     }
-
-    public function removeCollaborator($taskId, $userId)
+    public function removeCollaborators(Request $request, $taskId)
     {
-        
+        // Get the task
         $task = Task::findOrFail($taskId);
+        
+        // Validate the selected users
+        $request->validate([
+            'selected_users' => 'required|array',
+            'selected_users.*' => 'exists:users,id', // Ensure each selected user exists
+        ]);
 
-        $user = User::findOrFail($userId);
+        // Delete the selected collaborators
+        $task->users()->detach($request->input('selected_users'));
 
-        // Detach the user from the task's collaborators
-        $task->users()->detach($user);
-
+        // Redirect back or to any other route as needed
         return redirect()->back();
     }
 }
